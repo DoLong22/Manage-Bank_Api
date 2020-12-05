@@ -1,6 +1,7 @@
 package spring.service.person;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import spring.model.Person;
@@ -41,8 +42,8 @@ public class PersonServiceIml implements PersonService {
     }
 
     @Override
-    public List<Person> getAllPerson(Pageable pageable) {
-        List<Person> listPerson = this.personRepository.findAll(pageable).getContent();
+    public List<Person> getAllPerson(int page) {
+        List<Person> listPerson = this.personRepository.findAll(PageRequest.of(page, 20)).getContent();
         return listPerson;
     }
 

@@ -2,6 +2,7 @@ package spring.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +41,8 @@ public class PersonController {
         }
     }
     @GetMapping(produces = "application/json")
-    public ResponseEntity<?> getAllPerson(Pageable pageable){
-        List<Person> persons = this.personService.getAllPerson(pageable);
+    public ResponseEntity<?> getAllPerson(@RequestParam int page){
+        List<Person> persons = this.personService.getAllPerson(page);
         if (persons != null){
             return new ResponseEntity<>(persons, HttpStatus.OK);
         }

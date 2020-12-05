@@ -13,7 +13,7 @@ public interface PersonService {
 
     public boolean deletePerson(int id);
 
-    public List<Person> getAllPerson(Pageable pageable);
+    public List<Person> getAllPerson(int page);
 
     public Person getPersonById(int id);
 

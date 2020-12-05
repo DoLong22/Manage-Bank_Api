@@ -1,6 +1,12 @@
-package spring.model;
-
-public enum Position {
-    STAFF,
-    MANAGER
-}
+//package spring.model;
+//
+//public enum Position {
+//    NHANVIENHANHCHINH,
+//    TRUONGPHONG,
+//    PHOGIAMDOC,
+//    PHOPHONG,
+//    GIAMDOC,
+//    NHANVIENKINHDOANH,
+//    BAOVE,
+//    LETAN,
+//}

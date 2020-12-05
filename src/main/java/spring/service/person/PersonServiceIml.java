@@ -1,0 +1,54 @@
+package spring.service.person;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import spring.model.Person;
+import spring.repository.PersonRepository;
+import spring.service.person.PersonService;
+
+import java.util.List;
+
+@Service
+public class PersonServiceIml implements PersonService {
+    @Autowired
+    private PersonRepository personRepository;
+
+    @Override
+    public Person addPerson(Person person) {
+        return this.personRepository.save((person));
+    }
+
+    @Override
+    public Person updatePerson(Person person) {
+        Person exitsPerson = this.personRepository.findById(person.getId()).orElse(null);
+        if(exitsPerson != null){
+            exitsPerson = personRepository.saveAndFlush(person);
+        }
+        System.out.println(exitsPerson);
+        return  exitsPerson;
+    }
+
+    @Override
+    public boolean deletePerson(int id) {
+        boolean isDeleted = false;
+        Person person = this.personRepository.findById(id).orElse(null);
+        if(person != null ){
+            this.personRepository.deleteById(id);
+            isDeleted = true;
+        }
+        return isDeleted;
+    }
+
+    @Override
+    public List<Person> getAllPerson(Pageable pageable) {
+        List<Person> listPerson = this.personRepository.findAll(pageable).getContent();
+        return listPerson;
+    }
+
+    @Override
+    public Person getPersonById(int id) {
+        Person person = this.personRepository.findById(id).orElse(null);
+        return person;
+    }
+}

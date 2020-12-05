@@ -1,26 +1,37 @@
 package spring.model;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Person {
+@Table(name = "Nguoi")
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "address")
-    private String address;
-
-    @Column(name = "card_number")
+    @Column(name = "socmt")
     private String cardNumber;
 
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
+    @Column(name = "ngaysinh")
+    private String ngaySinh;
+
+    @Column(name = "email")
+    private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "diachiid", referencedColumnName = "id")
+    private Address address;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tenid", referencedColumnName = "id")
+    private FullName fullName;
 }

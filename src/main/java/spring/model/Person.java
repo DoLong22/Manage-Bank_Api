@@ -13,6 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Person implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -22,7 +23,7 @@ public class Person implements Serializable {
     private String cardNumber;
 
     @Column(name = "ngaysinh")
-    private String ngaySinh;
+    private Date ngaySinh;
 
     @Column(name = "email")
     private String email;

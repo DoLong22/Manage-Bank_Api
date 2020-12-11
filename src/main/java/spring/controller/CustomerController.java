@@ -1,5 +1,6 @@
 package spring.controller;
 
+import org.aspectj.apache.bcel.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import spring.model.Customer;
 import spring.model.Person;
 import spring.service.customer.CustomerService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
@@ -37,5 +40,37 @@ public class CustomerController {
         }
     }
 
+    @GetMapping (produces = "application/json")
+    public ResponseEntity<?> getAllCustomer(@RequestParam int page) {
+        List <Customer > customers = this.customerService.getAllCustomer(page) ;
+        if(customers != null){
+            return new ResponseEntity<>(customers,HttpStatus.OK) ;
+        }
+        else {
+            return  new ResponseEntity<>("fail",HttpStatus.SEE_OTHER) ;
+        }
+    }
+
+    @PutMapping(produces = "application/json")
+    public ResponseEntity<?> updateCustomer(@RequestBody Customer customer){
+        Customer customerUpdate =this.customerService.updateCustomer(customer) ;
+        if(customerUpdate != null){
+            return new ResponseEntity<>("fail",HttpStatus.OK) ;
+        }
+        else {
+            return new ResponseEntity<>("fail",HttpStatus.SEE_OTHER) ;
+        }
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deleteCustomer(@PathVariable int id){
+        boolean doSucces = this.customerService.deleteCustomer(id) ;
+        if(doSucces == true){
+            return new ResponseEntity<>("delete successfull",HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("fail",HttpStatus.SEE_OTHER);
+        }
+    }
 
 }

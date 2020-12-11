@@ -59,7 +59,7 @@ public class PersonController {
             return new ResponseEntity<>("fail", HttpStatus.SEE_OTHER);
         }
     }
-    @DeleteMapping(value="/{id}", produces = "application/json")
+    @DeleteMapping(value="/{id}")
     public ResponseEntity<?> deletePerson(@PathVariable int id){
         boolean doSuccess = this.personService.deletePerson(id);
         if (doSuccess == true){

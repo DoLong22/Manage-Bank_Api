@@ -22,7 +22,7 @@ public class Person implements Serializable {
     private String cardNumber;
 
     @Column(name = "ngaysinh")
-    private String ngaySinh;
+    private Date ngaySinh;
 
     @Column(name = "email")
     private String email;

@@ -14,5 +14,5 @@ public interface CustomerService {
 
     public Customer getCustomerById(int id);
 
-    public List<Customer> searchCustomerByMasoKh(String masoKh) ;
+    public Customer findByIdCustomer(String idCustomer) ;
 }

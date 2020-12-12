@@ -50,6 +50,16 @@ public class CustomerController {
             return  new ResponseEntity<>("fail",HttpStatus.SEE_OTHER) ;
         }
     }
+    @GetMapping(value = "/idCustomer/{idCustomer}",produces = "application/json")
+    public ResponseEntity<?> findByIdCustomer(@PathVariable String idCustomer){
+        Customer customer = this.customerService.findByIdCustomer(idCustomer);
+        if(customer != null){
+            return  new ResponseEntity<>(customer ,HttpStatus.OK) ;
+        }
+        else {
+            return new ResponseEntity<>("fail",HttpStatus.SEE_OTHER);
+        }
+    }
 
     @PutMapping(produces = "application/json")
     public ResponseEntity<?> updateCustomer(@RequestBody Customer customer){

@@ -53,7 +53,8 @@ public class CustomerServicelml implements CustomerService{
     }
 
     @Override
-    public List<Customer> searchCustomerByMasoKh(String masoKh) {
-        return null;
+    public Customer findByIdCustomer(String idCustomer) {
+        Customer customer = this.customerRepository.findByIdCustomer(idCustomer);
+        return  customer ;
     }
 }

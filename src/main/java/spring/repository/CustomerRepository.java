@@ -9,4 +9,6 @@ import spring.model.Customer;
 public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     @Override
     Page<Customer> findAll(Pageable pageable);
+
+    Customer findByIdCustomer(String idCustomer);
 }

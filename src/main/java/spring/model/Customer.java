@@ -19,7 +19,7 @@ public class Customer implements Serializable {
     private int id;
 
     @Column(name = "masokh")
-    private String masokh;
+    private String idCustomer;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="nguoiid",referencedColumnName = "id")

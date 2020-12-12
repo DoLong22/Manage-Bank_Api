@@ -25,5 +25,4 @@ public class AddressController {
             return new ResponseEntity<>("fail", HttpStatus.SEE_OTHER);
         }
     }
-
 }

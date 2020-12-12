@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Table(name = "nhanvien")
@@ -21,7 +22,8 @@ public class Employee implements Serializable {
     private int thamNien;
 
     @Column(name = "masonv")
-    private String idNhanvien;
+    @NotNull(message = "Employee code is require")
+    private String idEmployee;
 
     @ManyToOne
     @JoinColumn(name = "bacngheid", referencedColumnName = "id")

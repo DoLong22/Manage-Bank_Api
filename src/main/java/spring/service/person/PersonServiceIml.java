@@ -59,4 +59,10 @@ public class PersonServiceIml implements PersonService {
         return person;
     }
 
+    @Override
+    public Person findByPhoneNumber(String phoneNumber) {
+        Person person = this.personRepository.findByPhoneNumber(phoneNumber);
+        return person;
+    }
+
 }

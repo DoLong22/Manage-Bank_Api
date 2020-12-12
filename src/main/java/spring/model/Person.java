@@ -32,6 +32,10 @@ public class Person implements Serializable {
     @NotNull(message = "Email is not null")
     private String email;
 
+    @Column(name = "sodienthoai")
+    @NotNull(message = "Phone number is not null")
+    private String phoneNumber;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "diachiid", referencedColumnName = "id")
     @NotNull(message = "Address is not null")

@@ -7,21 +7,21 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table(name = "vitri_congviec")
+@Table(name = "bacnghe")
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Position implements Serializable {
+public class Level implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
-    @Column(name="vitricv")
-    private String viTri;
+    @Column(name="bacnghe")
+    private int bacNghe;
 
-    @Column(name="luongcoban")
-    private float luong;
+    @Column(name="hsluong")
+    private float hsLuong;
 
 }

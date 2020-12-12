@@ -7,21 +7,21 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table(name = "bacnghe")
+@Table(name = "Khachhang")
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Level implements Serializable {
+public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name="bacnghe")
-    private int bacNghe;
+    @Column(name = "masokh")
+    private String idCustomer;
 
-    @Column(name="hsluong")
-    private float hsLuong;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="nguoiid",referencedColumnName = "id")
+    private Person person ;
 }

@@ -1,18 +1,18 @@
 package spring.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import spring.model.Person;
-import spring.service.address.AddressService;
 import spring.service.person.PersonService;
+import spring.validate.ValidationObject;
 
+import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/person")
 public class PersonController {
@@ -20,8 +20,16 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
+    @Autowired
+    private ValidationObject validated;
+
     @PostMapping(produces = "application/json")
-    public ResponseEntity<?> addPerson(@RequestBody Person person){
+    public ResponseEntity<?> addPerson(@Valid @RequestBody Person person){
+//        List<String> errors = validated.getAllErrors(person);
+//        if(!errors.isEmpty()){
+//            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+//        }
+
         Person personAdded = this.personService.addPerson(person);
         if (personAdded != null){
             return new ResponseEntity<>(personAdded, HttpStatus.CREATED);
@@ -40,6 +48,17 @@ public class PersonController {
             return new ResponseEntity<>("fail", HttpStatus.SEE_OTHER);
         }
     }
+    @GetMapping(value = "/card-number/{cardNumber}", produces = "application/json")
+    public ResponseEntity<?> findByCardNumber(@PathVariable String cardNumber){
+        Person person = this.personService.findByCardNumber(cardNumber);
+        if (person != null){
+            return new ResponseEntity<>(person, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("fail", HttpStatus.SEE_OTHER);
+        }
+    }
+
     @GetMapping(produces = "application/json")
     public ResponseEntity<?> getAllPerson(@RequestParam int page){
         List<Person> persons = this.personService.getAllPerson(page);

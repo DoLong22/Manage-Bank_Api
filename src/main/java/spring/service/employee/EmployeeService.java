@@ -13,7 +13,7 @@ public interface EmployeeService {
 
     public boolean deleteEmployee(int id);
 
-    public List<Employee> getAllEmployee(Pageable pageable);
+    public List<Employee> getAllEmployee(int page);
 
     public Employee getEmployeeById(int id);
 

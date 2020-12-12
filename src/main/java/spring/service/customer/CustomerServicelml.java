@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import spring.model.Customer;
-import spring.model.Person;
 import spring.repository.CustomerRepository;
 
 import java.util.List;
@@ -51,5 +50,10 @@ public class CustomerServicelml implements CustomerService{
     public Customer getCustomerById(int id) {
         Customer customer = this.customerRepository.findById(id).orElse(null);
         return customer;
+    }
+
+    @Override
+    public List<Customer> searchCustomerByMasoKh(String masoKh) {
+        return null;
     }
 }

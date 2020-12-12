@@ -13,4 +13,6 @@ public interface CustomerService {
     public List<Customer> getAllCustomer(int page);
 
     public Customer getCustomerById(int id);
+
+    public List<Customer> searchCustomerByMasoKh(String masoKh) ;
 }

@@ -11,6 +11,7 @@ import spring.service.employee.EmployeeService;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {

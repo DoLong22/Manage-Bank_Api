@@ -3,6 +3,7 @@ package spring.service.employee;
 import org.springframework.data.domain.Pageable;
 import spring.model.Employee;
 import spring.model.Person;
+import spring.model.Position;
 
 import java.util.List;
 
@@ -19,5 +20,6 @@ public interface EmployeeService {
     public Employee getEmployeeById(int id);
 
     public Employee findByIdEmployee(String idNhanvien);
+
 
 }

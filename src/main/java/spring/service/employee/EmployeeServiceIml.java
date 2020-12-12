@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import spring.model.Employee;
 
 import spring.model.Person;
+import spring.model.Position;
 import spring.repository.EmployeeRepository;
 
 import spring.service.employee.EmployeeService;
@@ -62,4 +63,5 @@ public class EmployeeServiceIml implements EmployeeService {
         Employee employee = this.employeeRepository.findByIdEmployee(idNhanvien);
         return employee;
     }
+
 }

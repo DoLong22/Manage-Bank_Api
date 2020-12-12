@@ -17,6 +17,14 @@ public class ValidationObject {
         if(person.getCardNumber() == null){
             errors.add("Card number is require");
         }
+        if (person.getPhoneNumber() == null){
+            errors.add("Phone number is require");
+        }
+        else if (!person.getPhoneNumber().matches(validStringPhoneNumber)){
+            errors.add(
+                    "Phone number: " + person.getPhoneNumber() + " is wrong. Phone number consists of 10 characters as a number"
+            );
+        }
         if(person.getAddress() == null){
             errors.add("Address is require");
         }
@@ -35,7 +43,7 @@ public class ValidationObject {
     public List<String> getAllErrors(Employee employee) {
         List<String> errors = new ArrayList<>();
 
-        if (employee.getIdNhanvien() == null) {
+        if (employee.getIdEmployee() == null) {
             errors.add("Id employee is require");
         }
         if (employee.getLevel() == null) {

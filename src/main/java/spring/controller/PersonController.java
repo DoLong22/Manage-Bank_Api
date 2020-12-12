@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import spring.model.Person;
@@ -16,8 +18,12 @@ import java.util.List;
 import spring.service.person.PersonService;
 import spring.validate.ValidationObject;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
@@ -31,71 +37,96 @@ public class PersonController {
     private ValidationObject validated;
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<?> addPerson(@Valid @RequestBody Person person){
-//        List<String> errors = validated.getAllErrors(person);
-//        if(!errors.isEmpty()){
-//            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-//        }
+    public ResponseEntity<?> addPerson(@Valid @RequestBody Person person) {
         Person personAdded = this.personService.addPerson(person);
-        if (personAdded != null){
+        if (personAdded != null) {
             return new ResponseEntity<>(personAdded, HttpStatus.CREATED);
-        }
-        else {
+        } else {
             return new ResponseEntity<>("fail", HttpStatus.SEE_OTHER);
         }
     }
+
     @GetMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<?> getPersonById(@PathVariable int id){
+    public ResponseEntity<?> getPersonById(@PathVariable int id) {
         Person person = this.personService.getPersonById(id);
-        if (person != null){
+        if (person != null) {
             return new ResponseEntity<>(person, HttpStatus.OK);
-        }
-        else {
+        } else {
             return new ResponseEntity<>("fail", HttpStatus.SEE_OTHER);
         }
     }
 
     @GetMapping(value = "/card-number/{cardNumber}", produces = "application/json")
-    public ResponseEntity<?> findByCardNumber(@PathVariable String cardNumber){
+    public ResponseEntity<?> findByCardNumber(@PathVariable String cardNumber) {
         Person person = this.personService.findByCardNumber(cardNumber);
-        if (person != null){
+        if (person != null) {
             return new ResponseEntity<>(person, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("fail", HttpStatus.SEE_OTHER);
         }
-        else {
+    }
+
+    @GetMapping(value = "/phone-number/{phoneNumber}", produces = "application/json")
+    public ResponseEntity<?> findByPhoneNumber(@PathVariable String phoneNumber) {
+        Person person = this.personService.findByCardNumber(phoneNumber);
+        if (person != null) {
+            return new ResponseEntity<>(person, HttpStatus.OK);
+        } else {
             return new ResponseEntity<>("fail", HttpStatus.SEE_OTHER);
         }
     }
 
     @GetMapping(produces = "application/json")
-    public ResponseEntity<?> getAllPerson(@RequestParam int page){
+    public ResponseEntity<?> getAllPerson(@RequestParam int page) {
         List<Person> persons = this.personService.getAllPerson(page);
-        if (persons != null){
+        if (persons != null) {
             return new ResponseEntity<>(persons, HttpStatus.OK);
-        }
-        else {
+        } else {
             return new ResponseEntity<>("fail", HttpStatus.SEE_OTHER);
         }
     }
+
     @PutMapping(produces = "application/json")
-    public ResponseEntity<?> updatePerson(@RequestBody Person person){
+    public ResponseEntity<?> updatePerson(@RequestBody Person person) {
         Person personUpdated = this.personService.updatePerson(person);
-        if (personUpdated != null){
+        if (personUpdated != null) {
             return new ResponseEntity<>(personUpdated, HttpStatus.OK);
-        }
-        else {
+        } else {
             return new ResponseEntity<>("fail", HttpStatus.SEE_OTHER);
         }
     }
 
-
-    @DeleteMapping(value="/{id}")
-    public ResponseEntity<?> deletePerson(@PathVariable int id){
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deletePerson(@PathVariable int id) {
         boolean doSuccess = this.personService.deletePerson(id);
-        if (doSuccess == true){
+        if (doSuccess == true) {
             return new ResponseEntity<>("delete successfull", HttpStatus.OK);
-        }
-        else {
+        } else {
             return new ResponseEntity<>("fail", HttpStatus.SEE_OTHER);
         }
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
+    }
+    @ExceptionHandler({ ConstraintViolationException.class })
+    public Map<String, String> handleConstraintViolation(
+            ConstraintViolationException ex) {
+        Map<String, String> errors = new HashMap<>();
+        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+            String fieldName = violation.getRootBeanClass().getName();
+            String errorMessage = violation.getMessage();
+            errors.put(fieldName, errorMessage);
+        }
+        return errors;
     }
 }

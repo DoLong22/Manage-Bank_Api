@@ -3,7 +3,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -19,26 +21,28 @@ public class Person implements Serializable {
     @Column(name = "id")
     private int id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "diachiid", referencedColumnName = "id")
-    @NotNull(message = "Card number is not null")
+    @Column(name = "socmt")
+    @NotNull(message = "Card number is require")
     private String cardNumber;
 
     @Column(name = "ngaysinh")
-    @NotNull(message = "Date of birth is not null")
+    @NotNull(message = "Date of birth is require")
     private Date ngaySinh;
 
     @Column(name = "email")
-    @NotNull(message = "Email is not null")
+    @Email(message = "Email should be valid")
     private String email;
+
+    @Column(name = "sodienthoai")
+    @NotNull(message = "Phone number is require")
+    @Pattern(regexp="^(\\d{3}[- .]?){2}\\d{4}$", message = "Phone number  is wrong. Phone number consists of 10 characters as a number")
+    private String phoneNumber;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "diachiid", referencedColumnName = "id")
-    @NotNull(message = "Address is not null")
     private Address address;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tenid", referencedColumnName = "id")
-    @NotNull(message = "Name is not null")
     private FullName fullName;
 }

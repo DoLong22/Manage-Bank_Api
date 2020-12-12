@@ -10,4 +10,6 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
     Page<Person> findAll(Pageable pageable);
 
     Person findByCardNumber(String cardNumber);
+
+    Person findByPhoneNumber(String phoneNumber);
 }

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Table(name = "vitri_congviec")
@@ -19,9 +21,11 @@ public class Position implements Serializable {
     private int id;
 
     @Column(name="vitricv")
+    @NotBlank(message = "Position cannot be blank")
     private String viTri;
 
     @Column(name="luongcoban")
+    @NotNull(message = "Basic salary is require")
     private float luong;
 
 }

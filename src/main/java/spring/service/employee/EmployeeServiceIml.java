@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import spring.model.Employee;
 
+import spring.model.Person;
 import spring.repository.EmployeeRepository;
 
 import spring.service.employee.EmployeeService;
@@ -53,6 +54,12 @@ public class EmployeeServiceIml implements EmployeeService {
     @Override
     public Employee getEmployeeById(int id) {
         Employee employee = this.employeeRepository.findById(id).orElse(null);
+        return employee;
+    }
+
+    @Override
+    public Employee findByIdEmployee(String idNhanvien) {
+        Employee employee = this.employeeRepository.findByIdEmployee(idNhanvien);
         return employee;
     }
 }

@@ -8,19 +8,29 @@ import org.springframework.web.bind.annotation.*;
 
 import spring.model.Employee;
 import spring.service.employee.EmployeeService;
+import spring.validate.ValidationObject;
 
 import java.util.List;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/employee")
+@CrossOrigin("*")
 public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private ValidationObject validated;
+
     @PostMapping(produces = "application/json")
     public ResponseEntity<?> addEmployee(@RequestBody Employee employee){
+        List<String> errors = validated.getAllErrors(employee);
+        if(!errors.isEmpty()){
+            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+        }
+
         Employee EmployeeAdded = this.employeeService.addEmployee(employee);
         if (EmployeeAdded != null){
             return new ResponseEntity<>(EmployeeAdded, HttpStatus.CREATED);
@@ -40,8 +50,8 @@ public class EmployeeController {
         }
     }
     @GetMapping(produces = "application/json")
-    public ResponseEntity<?> getAllEmployee(Pageable pageable){
-        List<Employee> employees = this.employeeService.getAllEmployee(pageable);
+    public ResponseEntity<?> getAllEmployee(@RequestParam int page){
+        List<Employee> employees = this.employeeService.getAllEmployee(page);
         if (employees != null){
             return new ResponseEntity<>(employees, HttpStatus.OK);
         }

@@ -17,4 +17,5 @@ public interface PersonService {
 
     public Person getPersonById(int id);
 
+    public Person findByCardNumber(String cardNumer);
 }

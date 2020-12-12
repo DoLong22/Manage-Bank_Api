@@ -1,6 +1,7 @@
 package spring.service.employee;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import spring.model.Employee;
@@ -44,8 +45,8 @@ public class EmployeeServiceIml implements EmployeeService {
     }
 
     @Override
-    public List<Employee> getAllEmployee(Pageable pageable) {
-        List<Employee> listEmployee = this.employeeRepository.findAll(pageable).getContent();
+    public List<Employee> getAllEmployee( int page) {
+        List<Employee> listEmployee = this.employeeRepository.findAll(PageRequest.of(page, 20)).getContent();
         return listEmployee;
     }
 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import spring.model.Address;
 import spring.service.address.AddressService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/address")
 public class AddressController {

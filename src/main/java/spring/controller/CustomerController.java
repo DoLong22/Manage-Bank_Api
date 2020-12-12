@@ -12,6 +12,7 @@ import spring.service.customer.CustomerService;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/customer")
 public class CustomerController {
     @Autowired

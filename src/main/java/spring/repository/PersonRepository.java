@@ -8,4 +8,6 @@ import spring.model.Person;
 public interface PersonRepository extends JpaRepository<Person, Integer> {
     @Override
     Page<Person> findAll(Pageable pageable);
+
+    Person findByCardNumber(String cardNumber);
 }

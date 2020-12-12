@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Table(name = "nhanvien")
@@ -21,6 +22,7 @@ public class Employee implements Serializable {
     private int thamNien;
 
     @Column(name = "masonv")
+    @NotNull(message = "Card number is not null")
     private String idNhanvien;
 
     @ManyToOne

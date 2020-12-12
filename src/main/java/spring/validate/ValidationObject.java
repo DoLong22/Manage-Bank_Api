@@ -43,7 +43,7 @@ public class ValidationObject {
     public List<String> getAllErrors(Employee employee) {
         List<String> errors = new ArrayList<>();
 
-        if (employee.getIdNhanvien() == null) {
+        if (employee.getIdEmployee() == null) {
             errors.add("Id employee is require");
         }
         if (employee.getLevel() == null) {

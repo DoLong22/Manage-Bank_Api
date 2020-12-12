@@ -11,6 +11,8 @@ import spring.model.Person;
 import spring.service.person.PersonService;
 import spring.validate.ValidationObject;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -107,6 +109,17 @@ public class PersonController {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
+        return errors;
+    }
+    @ExceptionHandler({ ConstraintViolationException.class })
+    public Map<String, String> handleConstraintViolation(
+            ConstraintViolationException ex) {
+        Map<String, String> errors = new HashMap<>();
+        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+            String fieldName = violation.getRootBeanClass().getName();
+            String errorMessage = violation.getMessage();
+            errors.put(fieldName, errorMessage);
+        }
         return errors;
     }
 }

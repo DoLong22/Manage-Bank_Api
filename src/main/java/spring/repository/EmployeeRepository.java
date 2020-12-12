@@ -9,5 +9,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Override
     Page<Employee> findAll(Pageable pageable);
 
-    Employee findByIdNhanvien(String idNhanvien);
+    Employee findByIdEmployee(String idNhanvien);
 }

@@ -22,8 +22,8 @@ public class Employee implements Serializable {
     private int thamNien;
 
     @Column(name = "masonv")
-    @NotNull(message = "Card number is not null")
-    private String idNhanvien;
+    @NotNull(message = "Employee code is require")
+    private String idEmployee;
 
     @ManyToOne
     @JoinColumn(name = "bacngheid", referencedColumnName = "id")

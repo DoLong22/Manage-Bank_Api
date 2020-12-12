@@ -58,8 +58,8 @@ public class EmployeeServiceIml implements EmployeeService {
     }
 
     @Override
-    public Employee findByIdNhanvien(String idNhanvien) {
-        Employee employee = this.employeeRepository.findByIdNhanvien(idNhanvien);
+    public Employee findByIdEmployee(String idNhanvien) {
+        Employee employee = this.employeeRepository.findByIdEmployee(idNhanvien);
         return employee;
     }
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Table(name = "Khachhang")
@@ -19,6 +20,7 @@ public class Customer implements Serializable {
     private int id;
 
     @Column(name = "masokh")
+    @NotNull(message = "Customer code is require")
     private String idCustomer;
 
     @OneToOne(cascade = CascadeType.ALL)

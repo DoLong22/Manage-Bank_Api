@@ -18,6 +18,6 @@ public interface EmployeeService {
 
     public Employee getEmployeeById(int id);
 
-    public Employee findByIdNhanvien(String idNhanvien);
+    public Employee findByIdEmployee(String idNhanvien);
 
 }

@@ -4,12 +4,19 @@ import org.aspectj.apache.bcel.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import spring.model.Customer;
-import spring.model.Person;
 import spring.service.customer.CustomerService;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -19,8 +26,7 @@ public class CustomerController {
     private CustomerService customerService ;
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<?> addCustomer(@RequestBody Customer customer){
-        System.out.println("customer.." + customer);
+    public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer customer){
         Customer customerAdded = this.customerService.addCustomer(customer);
         if (customerAdded != null){
             return new ResponseEntity<>(customerAdded, HttpStatus.CREATED);
@@ -84,5 +90,40 @@ public class CustomerController {
         }
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
+    }
 
+    @ExceptionHandler({ ConstraintViolationException.class })
+    public Map<String, String> handleConstraintViolation(
+            ConstraintViolationException ex) {
+        Map<String, String> errors = new HashMap<>();
+        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+            String fieldName = violation.getRootBeanClass().getName();
+            String errorMessage = violation.getMessage();
+            errors.put(fieldName, errorMessage);
+        }
+        return errors;
+    }
+//    @ExceptionHandler({ SQLIntegrityConstraintViolationException.class })
+//    public Map<String, String> handleConstraintViolation(
+//            SQLIntegrityConstraintViolationException ex) {
+//        Map<String, String> errors = new HashMap<>();
+//        System.out.println(ex.getLocalizedMessage());
+//        for (ConstraintViolation<?> violation : ex.) {
+//            String fieldName = violation.getRootBeanClass().getName();
+//            String errorMessage = violation.getMessage();
+//            errors.put(fieldName, errorMessage);
+//        }
+//        return errors;
+//    }
 }

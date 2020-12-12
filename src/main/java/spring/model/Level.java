@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -22,8 +24,8 @@ public class Level implements Serializable {
 
     @Column(name="bacnghe")
     @NotNull(message = "Job level is requied")
-    @Size(min = 1, max = 8, message
-            = "Job level be between 10 and 200 characters")
+    @Min(value = 1, message = "Bac nghe should not be less than 1")
+    @Max(value = 7, message = "Bac nghe should not be greater than 7")
     private int bacNghe;
 
     @Column(name="hsluong")

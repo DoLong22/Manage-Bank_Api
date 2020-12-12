@@ -52,4 +52,11 @@ public class PersonServiceIml implements PersonService {
         Person person = this.personRepository.findById(id).orElse(null);
         return person;
     }
+
+    @Override
+    public Person findByCardNumber(String cardNumer) {
+        Person person = this.personRepository.findByCardNumber(cardNumer);
+        return person;
+    }
+
 }

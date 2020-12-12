@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import spring.model.Employee;
+import spring.model.Person;
 import spring.service.employee.EmployeeService;
 import spring.validate.ValidationObject;
 
@@ -41,6 +42,16 @@ public class EmployeeController {
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<?> getEmployeeById(@PathVariable int id){
         Employee employee = this.employeeService.getEmployeeById(id);
+        if (employee != null){
+            return new ResponseEntity<>(employee, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("fail", HttpStatus.SEE_OTHER);
+        }
+    }
+    @GetMapping(value = "/id-nhanvien/{idNhanvien}", produces = "application/json")
+    public ResponseEntity<?> findByIdNhanvien(@PathVariable String idNhanvien){
+        Employee employee = this.employeeService.findByIdNhanvien(idNhanvien);
         if (employee != null){
             return new ResponseEntity<>(employee, HttpStatus.OK);
         }

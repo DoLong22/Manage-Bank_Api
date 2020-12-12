@@ -2,6 +2,7 @@ package spring.service.employee;
 
 import org.springframework.data.domain.Pageable;
 import spring.model.Employee;
+import spring.model.Person;
 
 import java.util.List;
 
@@ -16,5 +17,7 @@ public interface EmployeeService {
     public List<Employee> getAllEmployee(int page);
 
     public Employee getEmployeeById(int id);
+
+    public Employee findByIdNhanvien(String idNhanvien);
 
 }

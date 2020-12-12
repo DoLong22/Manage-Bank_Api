@@ -19,7 +19,7 @@ public class Level implements Serializable {
     private int id;
 
     @Column(name="bacnghe")
-    private String bacNghe;
+    private int bacNghe;
 
     @Column(name="hsluong")
     private float hsLuong;

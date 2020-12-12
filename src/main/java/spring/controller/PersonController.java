@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import spring.model.Person;
 import spring.service.address.AddressService;
 import spring.service.person.PersonService;
+import spring.validate.ValidationObject;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/person")
 public class PersonController {
@@ -20,8 +22,16 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
+    @Autowired
+    private ValidationObject validated;
+
     @PostMapping(produces = "application/json")
     public ResponseEntity<?> addPerson(@RequestBody Person person){
+        List<String> errors = validated.getAllErrors(person);
+        if(!errors.isEmpty()){
+            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+        }
+
         Person personAdded = this.personService.addPerson(person);
         if (personAdded != null){
             return new ResponseEntity<>(personAdded, HttpStatus.CREATED);

@@ -24,7 +24,6 @@ public class CustomerServicelml implements CustomerService{
         if(exitsCustomer != null){
             exitsCustomer = customerRepository.saveAndFlush(customer);
         }
-        System.out.println(exitsCustomer);
         return  exitsCustomer;
     }
 

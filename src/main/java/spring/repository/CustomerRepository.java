@@ -11,4 +11,6 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     Page<Customer> findAll(Pageable pageable);
 
     Customer findByIdCustomer(String idCustomer);
+    Customer deleteByIdCustomer(String idCustomer);
+
 }

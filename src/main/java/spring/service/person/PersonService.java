@@ -20,4 +20,6 @@ public interface PersonService {
     public Person findByCardNumber(String cardNumer);
 
     public Person findByPhoneNumber(String phoneNumber);
+
+    public List<Person> getListPersonByName(String name);
 }

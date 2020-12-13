@@ -20,4 +20,6 @@ public interface EmployeeService {
 
     public Employee findByIdEmployee(String idNhanvien);
 
+    public List<Employee> getListEmployeeByName(String employeeName);
+
 }

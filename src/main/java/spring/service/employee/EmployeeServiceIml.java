@@ -9,15 +9,21 @@ import spring.model.Employee;
 import spring.model.Person;
 import spring.repository.EmployeeRepository;
 
+import spring.repository.PersonRepository;
 import spring.service.employee.EmployeeService;
+import spring.service.person.PersonService;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class EmployeeServiceIml implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private PersonService personService;
 
     @Override
     public Employee addEmployee(Employee employee) {
@@ -61,5 +67,22 @@ public class EmployeeServiceIml implements EmployeeService {
     public Employee findByIdEmployee(String idNhanvien) {
         Employee employee = this.employeeRepository.findByIdEmployee(idNhanvien);
         return employee;
+    }
+
+    @Override
+    public List<Employee> getListEmployeeByName(String lastName) {
+        List<Person> personList = personService.getListPersonByName(lastName);
+        List<Employee> employeeList = new ArrayList<>();
+        if (!personList.isEmpty()) {
+            for (Person person : personList) {
+                Employee employee = employeeRepository.findByPerson(person);
+                if (person != null) {
+                    employeeList.add(employee);
+                }
+            }
+            return employeeList;
+        } else {
+            return null;
+        }
     }
 }

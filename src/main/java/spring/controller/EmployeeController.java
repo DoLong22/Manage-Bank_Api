@@ -1,5 +1,7 @@
 package spring.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +26,8 @@ import java.util.Map;
 @RestController
 @CrossOrigin("*")
 public class EmployeeController {
+
+    private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
     @Autowired
     private EmployeeService employeeService;
@@ -96,6 +100,28 @@ public class EmployeeController {
             return new ResponseEntity<>("fail", HttpStatus.SEE_OTHER);
         }
     }
+
+    @GetMapping(value = "/{employee_name}", produces = "application/json")
+    public ResponseEntity<?> getListEmployeeByLastName(@RequestParam("employee_name") String lastName){
+        logger.info("search list of employee by last name: {}", lastName);
+        List<Employee> employeeList = employeeService.getListEmployeeByName(lastName);
+        if (!employeeList.isEmpty()){
+            logger.info("successful ....");
+            return new ResponseEntity<>(employeeList, HttpStatus.OK);
+        }
+        else {
+            logger.error("not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /**
+     * 2 cái handler này hay đấy các bạn
+     * good job
+     * cho t học ké với nhé
+     * @param ex
+     * @return
+     */
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

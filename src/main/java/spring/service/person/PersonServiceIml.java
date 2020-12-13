@@ -4,16 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import spring.model.FullName;
 import spring.model.Person;
+import spring.repository.FullNameRepository;
 import spring.repository.PersonRepository;
 import spring.service.person.PersonService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class PersonServiceIml implements PersonService {
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private FullNameRepository fullNameRepository;
 
     @Override
     public Person addPerson(Person person) {
@@ -63,6 +69,24 @@ public class PersonServiceIml implements PersonService {
     public Person findByPhoneNumber(String phoneNumber) {
         Person person = this.personRepository.findByPhoneNumber(phoneNumber);
         return person;
+    }
+
+    @Override
+    public List<Person> getListPersonByName(String name) {
+        List<Person> personList = new ArrayList<>();
+        List<FullName> fullNames = fullNameRepository.findByTen(name);
+        if (!fullNames.isEmpty()){
+            for (FullName fullName : fullNames){
+                Person person = personRepository.findByFullName(fullName);
+                if (person != null){
+                    personList.add(person);
+                }
+            }
+            return personList;
+        }
+        else {
+            return null;
+        }
     }
 
 }

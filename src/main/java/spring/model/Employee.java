@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 @Table(name = "nhanvien")
 @Entity
@@ -27,7 +28,7 @@ public class Employee implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "bacngheid", referencedColumnName = "id")
-    private Level level ;
+    private Level level;
 
     @ManyToOne
     @JoinColumn(name = "vitricvid", referencedColumnName = "id")

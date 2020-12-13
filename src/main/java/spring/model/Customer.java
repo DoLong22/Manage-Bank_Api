@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 @Table(name = "Khachhang")
 @Entity
@@ -26,4 +27,7 @@ public class Customer implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="nguoiid",referencedColumnName = "id")
     private Person person ;
+
+    @OneToMany(mappedBy = "customer")
+    private List<BankAccount> bankAccountList;
 }

@@ -19,5 +19,5 @@ public interface PersonService {
 
     public Person findByCardNumber(String cardNumer);
 
-    public Person findByPhoneNumber(String phoneNumber);
+//    public Person findByPhoneNumber(String phoneNumber);
 }

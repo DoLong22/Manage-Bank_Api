@@ -1,9 +1,10 @@
 package spring.service.customer;
-
+import com.devskiller.friendly_id.FriendlyId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import spring.model.Customer;
+import spring.model.Person;
 import spring.repository.CustomerRepository;
 
 import java.util.List;
@@ -11,11 +12,26 @@ import java.util.List;
 @Service
 public class CustomerServicelml implements CustomerService{
     @Autowired
-    private CustomerRepository customerRepository ;
+    private CustomerRepository customerRepository;
+
+    private String generateId(){
+        String friendId = FriendlyId.createFriendlyId();
+
+        return friendId;
+    }
 
     @Override
     public Customer addCustomer(Customer customer){
         return this.customerRepository.save(customer) ;
+    }
+
+    @Override
+    public Customer addCustomer(Person person) {
+        String idCustomer = generateId();
+        Customer customer = new Customer();
+        customer.setPerson(person);
+        customer.setIdCustomer(idCustomer);
+        return this.customerRepository.save(customer);
     }
 
     @Override
@@ -24,10 +40,8 @@ public class CustomerServicelml implements CustomerService{
         if(exitsCustomer != null){
             exitsCustomer = customerRepository.saveAndFlush(customer);
         }
-        System.out.println(exitsCustomer);
         return  exitsCustomer;
     }
-
 
     @Override
     public boolean deleteCustomer(int id) {
@@ -56,5 +70,10 @@ public class CustomerServicelml implements CustomerService{
     public Customer findByIdCustomer(String idCustomer) {
         Customer customer = this.customerRepository.findByIdCustomer(idCustomer);
         return  customer ;
+    }
+
+    @Override
+    public Customer findByPerson(Person person) {
+        return this.customerRepository.findByPerson(person);
     }
 }

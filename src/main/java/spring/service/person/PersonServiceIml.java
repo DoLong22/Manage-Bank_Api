@@ -2,11 +2,9 @@ package spring.service.person;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import spring.model.Person;
 import spring.repository.PersonRepository;
-import spring.service.person.PersonService;
 
 import java.util.List;
 
@@ -59,10 +57,10 @@ public class PersonServiceIml implements PersonService {
         return person;
     }
 
-    @Override
-    public Person findByPhoneNumber(String phoneNumber) {
-        Person person = this.personRepository.findByPhoneNumber(phoneNumber);
-        return person;
-    }
+//    @Override
+//    public Person findByPhoneNumber(String phoneNumber) {
+//        Person person = this.personRepository.findByPhoneNumber(phoneNumber);
+//        return person;
+//    }
 
 }

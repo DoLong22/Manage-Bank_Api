@@ -8,6 +8,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import spring.model.Customer;
+import spring.model.Person;
 import spring.service.customer.CustomerService;
 
 import javax.validation.ConstraintViolation;
@@ -26,8 +27,8 @@ public class CustomerController {
     private CustomerService customerService ;
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer customer){
-        Customer customerAdded = this.customerService.addCustomer(customer);
+    public ResponseEntity<?> addCustomer(@Valid @RequestBody Person person){
+        Customer customerAdded = this.customerService.addCustomer(person);
         if (customerAdded != null){
             return new ResponseEntity<>(customerAdded, HttpStatus.CREATED);
         }

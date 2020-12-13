@@ -20,7 +20,7 @@ public class BankAccount {
 
     @Column(name="sotaikhoan")
     @NotNull(message = "Bank Account is requied")
-    private float bankAccount;
+    private String bankAccount;
 
     @Column(name="kieutaikhoan")
     @NotNull(message = "Type account is requied")
@@ -28,7 +28,7 @@ public class BankAccount {
 
     @Column(name="sodu")
     @NotNull(message = "Account balance is requied")
-    private String accountBalance;
+    private float accountBalance;
 
     @ManyToOne
     @JoinColumn(name = "hangtaikhoanid", referencedColumnName = "id")

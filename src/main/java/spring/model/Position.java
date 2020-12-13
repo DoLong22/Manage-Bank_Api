@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "vitri_congviec")
 @Entity
@@ -27,5 +29,8 @@ public class Position implements Serializable {
     @Column(name="luongcoban")
     @NotNull(message = "Basic salary is require")
     private float luong;
+
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "vitri_congviec")
+//    private List<Employee> listEmployee = new ArrayList<>();
 
 }

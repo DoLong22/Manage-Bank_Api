@@ -2,9 +2,12 @@ package spring.service.position;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import spring.model.Employee;
 import spring.model.Person;
 import spring.model.Position;
 import spring.repository.PositionRepository;
+
+import java.util.List;
 
 @Service
 public class PositionServicelml implements PositionService{
@@ -41,4 +44,5 @@ public class PositionServicelml implements PositionService{
         Position pos = this.positionRepository.findById(id).orElse(null);
         return pos;
     }
+
 }

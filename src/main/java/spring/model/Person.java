@@ -10,7 +10,7 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(name = "Nguoi")
+@Table(name = "nguoi")
 @Entity
 @Data
 @NoArgsConstructor
@@ -34,10 +34,10 @@ public class Person implements Serializable {
     @Email(message = "Email should be valid")
     private String email;
 
-    @Column(name = "sodienthoai")
-    @NotNull(message = "Phone number is require")
-    @Pattern(regexp="^(\\d{3}[- .]?){2}\\d{4}$", message = "Phone number  is wrong. Phone number consists of 10 characters as a number")
-    private String phoneNumber;
+//    @Column(name = "sodienthoai")
+//    @NotNull(message = "Phone number is require")
+////    @Pattern(regexp="^(\\d{3}[- .]?){2}\\d{4}$", message = "Phone number  is wrong. Phone number consists of 10 characters as a number")
+//    private String phoneNumber;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "diachiid", referencedColumnName = "id")

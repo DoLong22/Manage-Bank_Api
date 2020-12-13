@@ -1,20 +1,25 @@
 package spring.service.registing;
 
+import spring.model.BankAccount;
 import spring.model.Customer;
+import spring.model.Employee;
 import spring.model.Registing;
 
+import java.util.Date;
 import java.util.List;
 
 public interface RegistingService {
 
-    public Registing createRegisting(Registing registing);
+     Registing createRegisting(Registing registing);
 
-    public boolean deleteRegisting(int id);
+     Registing createRegisting(Employee employee, BankAccount bankAccount, Date date);
 
-    public Registing updateRegisting(Registing registing);
+     boolean deleteRegisting(int id);
 
-    public List<Registing> getAllRegisting(int page);
+     Registing updateRegisting(Registing registing);
 
-    public Registing getRegistingById(int id);
+     List<Registing> getAllRegisting(int page);
+
+     Registing getRegistingById(int id);
 
 }

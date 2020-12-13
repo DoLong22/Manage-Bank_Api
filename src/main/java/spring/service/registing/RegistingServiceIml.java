@@ -3,11 +3,10 @@ package spring.service.registing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import spring.model.Customer;
-import spring.model.Position;
-import spring.model.Registing;
+import spring.model.*;
 import spring.repository.RegistingRepository;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,6 +17,15 @@ public class RegistingServiceIml implements RegistingService{
 
     @Override
     public Registing createRegisting(Registing registing) {
+        return this.registingRepository.save((registing));
+    }
+
+    @Override
+    public Registing createRegisting(Employee employee, BankAccount bankAccount, Date date) {
+        Registing registing = new Registing();
+        registing.setEmployee(employee);
+        registing.setBankAccount(bankAccount);
+        registing.setDateOfRegister(date);
         return this.registingRepository.save(registing);
     }
 

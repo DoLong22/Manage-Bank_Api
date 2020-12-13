@@ -39,11 +39,8 @@ public class RegistingController {
     private EmployeeService employeeService;
 
     @PostMapping(produces = "application/json")
-//    public ResponseEntity<?> createBankAccount(@Valid @RequestBody Person person,
-//                                               @Valid @RequestBody String idEmployee,
-//                                               @RequestBody BankAccount bankAccount,
-//                                               @RequestBody Date currentDate) {
     public ResponseEntity<?> createBankAccount(@RequestBody InfomationRegisting infomationRegisting) {
+        infomationRegisting.setIdEmployee("5211212");
         List<String> errors = this.validationBankAccount.checkValidatetoCreate(infomationRegisting.getIdEmployee(), infomationRegisting.getPerson());
         if (!errors.isEmpty()) {
             return new ResponseEntity<>(errors, HttpStatus.FORBIDDEN);
@@ -70,7 +67,9 @@ public class RegistingController {
         Person existPerson = this.personService.findByCardNumber(personRegister.getCardNumber());
         Customer customerRegister = new Customer();
         if (existPerson != null) {
-            customerRegister = this.customerService.findByPerson(personRegister);
+//            customerRegister = this.customerService.findCustomerById(personRegister.getId());
+            customerRegister = this.customerService.findByPersonId(personRegister.getId());
+//                customerRegister = this.customerService.findByPerson(personRegister);
             return customerRegister;
         } else {
             customerRegister = this.customerService.addCustomer(personRegister);

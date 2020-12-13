@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
-@Table(name = "Khachhang")
+@Table(name = "khachhang")
 @Entity
 @Data
 @NoArgsConstructor
@@ -17,14 +17,14 @@ import java.util.List;
 public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "nguoiid")
     private int id;
 
     @Column(name = "masokh")
     @NotNull(message = "Customer code is require")
     private String idCustomer;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "customer" , cascade = CascadeType.ALL)
     @JoinColumn(name="nguoiid",referencedColumnName = "id")
     private Person person ;
 

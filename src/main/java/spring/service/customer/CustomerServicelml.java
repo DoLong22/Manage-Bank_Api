@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import spring.model.Customer;
 import spring.model.Person;
 import spring.repository.CustomerRepository;
+import spring.repository.PersonRepository;
+import spring.service.person.PersonService;
 
 import java.util.List;
 
@@ -14,6 +16,8 @@ public class CustomerServicelml implements CustomerService{
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private PersonService personService;
     private String generateId(){
         String friendId = FriendlyId.createFriendlyId();
 
@@ -61,7 +65,7 @@ public class CustomerServicelml implements CustomerService{
     }
 
     @Override
-    public Customer getCustomerById(int id) {
+    public Customer findCustomerById(int id) {
         Customer customer = this.customerRepository.findById(id).orElse(null);
         return customer;
     }
@@ -75,5 +79,10 @@ public class CustomerServicelml implements CustomerService{
     @Override
     public Customer findByPerson(Person person) {
         return this.customerRepository.findByPerson(person);
+    }
+
+    @Override
+    public Customer findByPersonId(int id) {
+        return this.customerRepository.findByPersonId(id);
     }
 }

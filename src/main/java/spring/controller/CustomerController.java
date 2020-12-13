@@ -39,7 +39,7 @@ public class CustomerController {
 
     @GetMapping(value = "/{id}",produces = "application/json")
     public ResponseEntity<?> getCustomerById(@PathVariable int id){
-        Customer customer =this.customerService.getCustomerById(id) ;
+        Customer customer =this.customerService.findCustomerById(id) ;
         if(customer != null){
             return new ResponseEntity<>(customer,HttpStatus.OK);
         }

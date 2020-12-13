@@ -17,10 +17,11 @@ public interface CustomerService {
 
     List<Customer> getAllCustomer(int page);
 
-    Customer getCustomerById(int id);
+    Customer findCustomerById(int id);
 
     Customer findByIdCustomer(String idCustomer) ;
 
     Customer findByPerson(Person person) ;
 
+    Customer findByPersonId(int id);
 }

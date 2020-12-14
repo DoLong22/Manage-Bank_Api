@@ -1,5 +1,7 @@
 package spring.service.customer;
 import com.devskiller.friendly_id.FriendlyId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ import java.util.List;
 
 @Service
 public class CustomerServicelml implements CustomerService{
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerServicelml.class);
+
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -61,6 +66,7 @@ public class CustomerServicelml implements CustomerService{
     @Override
     public List<Customer> getAllCustomer(int page) {
         List<Customer> listCustomer = this.customerRepository.findAll(PageRequest.of(page, 20)).getContent();
+        logger.info("Customer: {}", listCustomer);
         return listCustomer ;
     }
 

@@ -17,17 +17,17 @@ import java.util.List;
 public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "nguoiid")
+    @Column(name = "id")
     private int id;
 
     @Column(name = "masokh")
     @NotNull(message = "Customer code is require")
     private String idCustomer;
 
-    @OneToOne(mappedBy = "customer" , cascade = CascadeType.ALL)
+    @OneToOne( cascade = CascadeType.ALL)
     @JoinColumn(name="nguoiid",referencedColumnName = "id")
     private Person person ;
 
-    @OneToMany(mappedBy = "customer")
-    private List<BankAccount> bankAccountList;
+//    @OneToMany(mappedBy = "customer" )
+//    private List<BankAccount> bankAccountList;
 }

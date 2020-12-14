@@ -9,8 +9,8 @@ import spring.model.Employee;
 import spring.model.Position;
 
 import java.util.List;
-//@Repository
-//@EntityScan(basePackages = {"spring.model.Employee"})
+
+@Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Override
     Page<Employee> findAll(Pageable pageable);

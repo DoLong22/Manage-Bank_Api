@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import spring.model.Level;
 
 @Repository
-@EntityScan(basePackages = {"spring.model.Level"})
 public interface LevelRepository extends JpaRepository<Level, Integer>{
 
 }

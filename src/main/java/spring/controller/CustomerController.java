@@ -1,6 +1,8 @@
 package spring.controller;
 
 import org.aspectj.apache.bcel.Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ import java.util.Map;
 @CrossOrigin("*")
 @RequestMapping("/customer")
 public class CustomerController {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
+
     @Autowired
     private CustomerService customerService ;
 
@@ -39,7 +44,7 @@ public class CustomerController {
 
     @GetMapping(value = "/{id}",produces = "application/json")
     public ResponseEntity<?> getCustomerById(@PathVariable int id){
-        Customer customer =this.customerService.getCustomerById(id) ;
+        Customer customer =this.customerService.findCustomerById(id) ;
         if(customer != null){
             return new ResponseEntity<>(customer,HttpStatus.OK);
         }
@@ -48,9 +53,10 @@ public class CustomerController {
         }
     }
 
-    @GetMapping (produces = "application/json")
-    public ResponseEntity<?> getAllCustomer(@RequestParam int page) {
+    @GetMapping (value = "/get_all", produces = "application/json")
+    public ResponseEntity<?> getAllCustomer(@RequestParam(name = "page") int page) {
         List <Customer > customers = this.customerService.getAllCustomer(page) ;
+        logger.info("Customer: {}", customers);
         if(customers != null){
             return new ResponseEntity<>(customers,HttpStatus.OK) ;
         }

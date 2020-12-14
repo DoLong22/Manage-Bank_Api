@@ -9,7 +9,6 @@ import spring.model.Position;
 import java.util.List;
 
 @Repository
-@EntityScan(basePackages = {"spring.model.Position"})
 public interface PositionRepository extends JpaRepository<Position, Integer> {
 
     public Position findPositionByViTri(String viTri);

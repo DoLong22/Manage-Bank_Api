@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -34,11 +33,6 @@ public class Person implements Serializable {
     @Email(message = "Email should be valid")
     private String email;
 
-//    @Column(name = "sodienthoai")
-//    @NotNull(message = "Phone number is require")
-////    @Pattern(regexp="^(\\d{3}[- .]?){2}\\d{4}$", message = "Phone number  is wrong. Phone number consists of 10 characters as a number")
-//    private String phoneNumber;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "diachiid", referencedColumnName = "id")
     private Address address;
@@ -46,4 +40,5 @@ public class Person implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tenid", referencedColumnName = "id")
     private FullName fullName;
+
 }

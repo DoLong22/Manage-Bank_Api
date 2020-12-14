@@ -42,7 +42,7 @@ public class ValidationBankAccount {
         }
         Person existPerson = this.personRepository.findByCardNumber(person.getCardNumber());
         if(existPerson != null){
-            Customer customer = this.customerRepository.findByPerson(person);
+            Customer customer = this.customerRepository.findByPersonId(existPerson.getId());
             if(customer != null) {
                 List<BankAccount> bankAccounts = this.bankAccountRepository.findBankAccountByCustomer(customer);
                 int debit = 0;
